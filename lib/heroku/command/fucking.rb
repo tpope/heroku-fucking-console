@@ -1,5 +1,6 @@
 require 'heroku/command/run'
 
+# invoke commands without fucking "run"
 class Heroku::Command::Fucking < Heroku::Command::Run
 
   # fucking:console [COMMAND]
