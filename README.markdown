@@ -6,6 +6,8 @@
 
 FUCK OFF.  You know what I fucking mean.  Just fucking do it.
 
+**There needs to be more cursing in the command-line instead of at the command-line.**
+
 After years of annoyance, I'm finally fucking fixing this once and for all.
 
 ## Installation
