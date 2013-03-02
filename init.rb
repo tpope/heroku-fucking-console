@@ -1,1 +1,1 @@
-require 'heroku/command/fucking'
+require 'heroku/command/f-ing'
