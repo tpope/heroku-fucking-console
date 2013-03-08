@@ -32,7 +32,7 @@ point.
 
 Don't you just hate that shit?  Check out [Heroku wildcards][].
 
-[Heroku wildcards](https://github.com/tpope/heroku-wildcards)
+[Heroku wildcards]: https://github.com/tpope/heroku-wildcards
 
 ## License
 
