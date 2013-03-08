@@ -23,6 +23,17 @@ After years of annoyance, I'm finally fucking fixing this once and for all.
 These commands are aliased to be namespace-free.  That's the whole fucking
 point.
 
+## See also
+
+    $ heroku --app myapp console
+     !    `--app` is not a heroku command.
+     !    Perhaps you meant `--help` or `apps`.
+     !    See `heroku help` for a list of available commands.
+
+Don't you just hate that shit?  Check out [Heroku wildcards][].
+
+[Heroku wildcards](https://github.com/tpope/heroku-wildcards)
+
 ## License
 
 Copyright © Tim Pope
