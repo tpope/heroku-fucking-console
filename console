@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+if [ info = "$HKPLUGINMODE" -o -z "$HKAPP" ]; then
+  if [ -z "$HKAPP" ]; then
+    if [ -t 2 ]; then
+      printf '\e[01;31merror:\e[00;31m app required\e[00m\n' >&2
+    else
+      printf 'error: app required\n' >&2
+    fi
+  fi
+  exec cat >&2 <<EOF
+console 1.0.0: run a console
+
+Usage: hk console [-a <app>]
+
+Run a console on Heroku.
+
+Examples:
+
+    $ hk console
+    Running \`console\` on myapp as run.1357:
+    Loading production environment (Rails 4.0.1)
+    irb(main):001:0>
+EOF
+fi
+
+exec hk run console "$@"

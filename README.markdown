@@ -10,7 +10,16 @@ After years of annoyance, I'm finally fucking fixing this once and for all.
 
 ## Installation
 
-    $ heroku plugins:install https://github.com/tpope/heroku-fucking-console.git
+    heroku plugins:install https://github.com/tpope/heroku-fucking-console.git
+
+Or check out the version for [hk][]:
+
+    mkdir -p /usr/local/lib/hk/plugin &&
+    curl -Sso /usr/local/lib/hk/plugin/console \
+        https://raw.github.com/tpope/heroku-fucking-console/master/console &&
+    chmod +x /usr/local/lib/hk/plugin/console
+
+[hk]: https://github.com/heroku/hk
 
 ## Usage
 
