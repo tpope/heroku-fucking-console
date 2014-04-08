@@ -32,6 +32,11 @@ Or check out the version for [hk][]:
 These commands are aliased to be namespace-free.  That's the whole fucking
 point.
 
+The original console command was Ruby only, but this enhanced version special
+cases all sorts of shit based on the buildpack (e.f.g., `lein repl` for
+Clojure) and, if that's not good enough, lets you set the `CONSOLE` config
+variable to invoke whatever the fuck you want.
+
 ## See also
 
     $ heroku --app myapp console

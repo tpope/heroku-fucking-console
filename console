@@ -9,19 +9,42 @@ if [ info = "$HKPLUGINMODE" -o -z "$HKAPP" ]; then
     fi
   fi
   exec cat >&2 <<EOF
-console 1.0.0: run a console
+console 1.1.0: run a console
 
 Usage: hk console [-a <app>]
 
-Run a console on Heroku.
+Run a console on Heroku.  The exact command to run is chosen based on the
+CONSOLE config var or heuristically based on the buildpack.
 
 Examples:
 
-    $ hk console
-    Running \`console\` on myapp as run.1357:
+    $ hk console -a railsapp
+    Running \`bin/rails console\` on railsapp as run.1357:
     Loading production environment (Rails 4.0.1)
     irb(main):001:0>
+
+    $ hk console -a clojureapp
+    Running \`lein repl\` on clojureapp as run.2468:
+    Downloading Leiningen to .lein/leiningen-2.2.0-standalone.jar now...
+    ...
+    Clojure 1.5.1
+    user=>
+
+    $ hk set -a weirdapp CONSOLE=bin/console
 EOF
 fi
 
-exec hk run console "$@"
+console=$(hk get CONSOLE 2>/dev/null)
+
+if [ -z "$console" ]; then
+  case $(hk api get /apps/$HKAPP|sed -e 's/.*"buildpack_provided_description": *"//' -e 's/".*//') in
+    Ruby) console='console' ;;
+    Scala) console='sbt console' ;;
+    Python) console='python manage.py shell' ;;
+    Node.js) console='node' ;;
+    Clojure*) console='lein repl' ;;
+    *)         console='console' ;;
+  esac
+fi
+
+exec hk run $console "$@"
