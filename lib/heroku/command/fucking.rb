@@ -32,4 +32,12 @@ class Heroku::Command::Fucking < Heroku::Command::Run
   end
   alias_command 'rake', 'fucking:rake'
 
+  # fucking:bash COMMAND
+  #
+  # execute a fucking bash shell
+  def bash
+    run_attached((["bash"] + args).join(' '))
+  end
+  alias_command 'bash', 'fucking:bash'
+
 end
