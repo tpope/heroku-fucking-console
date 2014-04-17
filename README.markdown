@@ -30,7 +30,6 @@ Or check out the version for [hk][]:
       fucking:rake     #  execute a fucking rake task
       fucking:bash     #  execute a fucking bash shell
 
-
 These commands are aliased to be namespace-free.  That's the whole fucking
 point.
 
