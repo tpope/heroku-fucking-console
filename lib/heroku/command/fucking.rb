@@ -11,7 +11,7 @@ class Heroku::Command::Fucking < Heroku::Command::Run
   # heuristically based on the buildpack.
   def console
     console = config_vars.fetch('CONSOLE') do
-      case api.get_app(app).body['buildpack_provided_description']
+      case get_app['buildpack_provided_description']
       when 'Ruby' then 'console'
       when 'Scala' then 'sbt console'
       when 'Python' then 'python manage.py shell'
@@ -20,7 +20,7 @@ class Heroku::Command::Fucking < Heroku::Command::Run
       else                  'console'
       end
     end
-    run_attached(([console] + args).join(' '))
+    exec((["heroku", "run", "-a", app, console] + args).join(' '))
   end
   alias_command 'console', 'fucking:console'
 
@@ -28,19 +28,27 @@ class Heroku::Command::Fucking < Heroku::Command::Run
   #
   # execute a fucking rake task
   def rake
-    run_attached((["rake"] + args).join(' '))
+    exec((["heroku", "run", "-a", app, "rake"] + args).join(' '))
   end
   alias_command 'rake', 'fucking:rake'
 
   private
+
+  def platform_api
+    require 'platform-api'
+    @api ||= PlatformAPI.connect(Heroku::Auth.password)
+  end
+
   def config_vars
-    begin
-      require 'platform-api'
-      @api ||= PlatformAPI.connect(Heroku::Auth.password)
-      @api.config_var.info_for_app(app)
-    rescue LoadError
-      api.get_config_vars(app).body
-    end
+    platform_api.config_var.info_for_app(app)
+  rescue LoadError
+    api.get_config_vars(app).body
+  end
+
+  def get_app
+    platform_api.app.info(app)
+  rescue LoadError
+    api.get_app(app).body
   end
 
 end
